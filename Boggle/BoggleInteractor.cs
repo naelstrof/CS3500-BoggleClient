@@ -25,7 +25,7 @@ namespace WindowsFormsApplication1
         }
     }
     class GameState
-    {
+        {
         public int gameID;
         public string server;
         public string nickname;
@@ -33,6 +33,7 @@ namespace WindowsFormsApplication1
         public string state;
         public int timeLimit;
         public int timeLeft;
+        public int score;
         public string userToken;
         public string status;
         public List<Player> players;
@@ -111,10 +112,65 @@ namespace WindowsFormsApplication1
                 }
                 else
                 {
-                    state.status = "Error Joining game: " + response.StatusCode + ", " + response.ReasonPhrase;
+                    state.status = "Error joining game: " + response.StatusCode + ", " + response.ReasonPhrase;
                     return false;
                 }
             }
         }
-    }
+
+        async Task<bool> CancelJoinRequetAsync()
+        {
+            using (HttpClient client = CreateClient())
+            {
+                dynamic data = new ExpandoObject();
+                data.UserToken = state.userToken;
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PutAsync("/BoggleService.svc/games", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    state = new GameState();
+                    return true;
+                }
+                state.status = "Error puting cancel: " + response.StatusCode + ", " + response.ReasonPhrase;
+                return false;
+            }
+        }
+
+        async Task<bool> PlayWordAsync(string Word)
+        {
+            using (HttpClient client = CreateClient())
+            {
+                dynamic data = new ExpandoObject();
+                data.UserToken = state.userToken;
+                data.Word = Word;
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PutAsync("/BoggleService.svc/games/" + state.gameID, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = await response.Content.ReadAsStringAsync();
+                    dynamic result2 = JsonConvert.DeserializeObject(result);
+                    state.score += result2;
+                    return true;
+                }
+                state.status = "Error puting word: " + response.StatusCode + ", " + response.ReasonPhrase;
+                return false;
+            }
+        }
+
+        async Task<bool> GameStatusAsync()
+        {
+            using (HttpClient client = CreateClient())
+            {
+                HttpResponseMessage response = await client.GetAsync("/BoggleService.svc/games/" + state.gameID);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                state.status = "Error puting word: " + response.StatusCode + ", " + response.ReasonPhrase;
+                return false;
+            }
+        }
+    } 
 }
