@@ -9,23 +9,46 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApplication1
 {
-    struct Player
+    class Player
     {
-        string nickname;
-        int score;
+        public string nickname;
+        public int score;
+        public List<string> words;
+        public Player( string name, int s )
+        {
+            nickname = name;
+            score = s;
+        }
+        public void addWord( string word )
+        {
+            words.Add(word);
+        }
     }
-    struct GameState
+    class GameState
     {
         public int gameID;
         public string server;
         public string nickname;
-        public string state;
         public string board;
+        public string state;
         public int timeLimit;
         public int timeLeft;
         public string userToken;
         public string status;
         public List<Player> players;
+        public GameState()
+        {
+            server = "http://bogglecs3500s16.azurewebsites.net/";
+            nickname = "Loque";
+            status = "OK.";
+            gameID = 0;
+            state = "";
+            board = "";
+            timeLimit = 0;
+            timeLeft = 0;
+            userToken = "";
+            players = new List<Player>();
+        }
     }
     class BoggleAPI
     {
