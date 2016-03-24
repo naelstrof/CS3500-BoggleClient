@@ -29,20 +29,21 @@ namespace WindowsFormsApplication1
             client.BaseAddress = new Uri(this.server);
             return client;
         }
-        public void CreateUser( string name )
+        async Task<int> CreateUserASync()
         {
             using (HttpClient client = CreateClient())
             {
                 dynamic data = new ExpandoObject();
-                data.Nickname = name;
+                data.Nickname = playerName;
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
-                HttpResponseMessage response = client.PostAsync("/BoggleService.svc/users", content).Result;
+                HttpResponseMessage response = await client.PostAsync("/BoggleService.svc/users", content);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    String result = response.Content.ReadAsStringAsync().Result;
+                    string result = await response.Content.ReadAsStringAsync();
                     dynamic player = JsonConvert.DeserializeObject(result);
                     playerID = player.UserToken;
+                    return (int)response.StatusCode;
                 }
                 else
                 {
