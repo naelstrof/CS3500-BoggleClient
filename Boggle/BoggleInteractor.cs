@@ -81,7 +81,7 @@ namespace WindowsFormsApplication1
             client.BaseAddress = new Uri(this.state.server);
             return client;
         }
-        async Task<bool> CreateUserASync( string nickname )
+        public async Task<bool> CreateUserASync( string nickname )
         {
             using (HttpClient client = CreateClient())
             {
@@ -105,7 +105,7 @@ namespace WindowsFormsApplication1
                 }
             }
         }
-        async Task<bool> JoinGameASync( int timeLimit )
+        public async Task<bool> JoinGameASync( int timeLimit )
         {
             using (HttpClient client = CreateClient())
             {
@@ -132,7 +132,7 @@ namespace WindowsFormsApplication1
             }
         }
 
-        async Task<bool> CancelJoinRequestAsync()
+        public async Task<bool> CancelJoinRequestAsync()
         {
             using (HttpClient client = CreateClient())
             {
@@ -150,7 +150,7 @@ namespace WindowsFormsApplication1
             }
         }
 
-        async Task<bool> PlayWordAsync(string word)
+        public async Task<bool> PlayWordAsync(string word)
         {
             using (HttpClient client = CreateClient())
             {
@@ -172,7 +172,7 @@ namespace WindowsFormsApplication1
                 return false;
             }
         }
-        async Task<bool> GameStatusAsync()
+        public async Task<bool> GameStatusAsync()
         {
             using (HttpClient client = CreateClient())
             {

@@ -14,19 +14,35 @@ namespace WindowsFormsApplication1
         {
             window = win;
             model = new BoggleInteractor();
-
-            window.JoinGameEvent += JoinGameHandler;
-            window.CancelGameEvent += CancelGameHandler;
+            window.ConnectionOpenedEvent += HandleConnectionOpenedEvent;
+            window.WordEvent += HandleWordEvent;
+            window.ExitEvent += HandleExitEvent;
+            window.CancelEvent += HandleCancelEvent;
         }
-
-        public void JoinGameHandler()
+        public async void HandleConnectionOpenedEvent(string server, string nickname)
         {
-
+            model.state.server = server;
+            await model.CreateUserASync(nickname);
+            window.Message = model.state.status;
         }
-
-        public void CancelGameHandler()
+        public async void HandleWordEvent( string word )
         {
-
+            await model.PlayWordAsync(word);
+            window.Message = model.state.status;
+            window.Log = model.state.log;
+        }
+        public void HandleExitEvent()
+        {
+            model.CancelJoinRequestAsync();
+            window.Close();
+        }
+        public async void HandleCancelEvent()
+        {
+            await model.CancelJoinRequestAsync();
+            window.Message = model.state.status;
+            window.Log = model.state.log;
+            window.Score = "Score: 0";
+            window.Board = "                ";
         }
     }
 }

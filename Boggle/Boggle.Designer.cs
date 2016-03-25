@@ -59,6 +59,8 @@
             this.scoreLabel = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).BeginInit();
@@ -119,7 +121,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 331);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 364);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(469, 22);
             this.statusStrip1.TabIndex = 4;
@@ -351,16 +353,16 @@
             // scoreLabel
             // 
             this.scoreLabel.AutoSize = true;
-            this.scoreLabel.Location = new System.Drawing.Point(370, 294);
+            this.scoreLabel.Location = new System.Drawing.Point(274, 353);
             this.scoreLabel.Name = "scoreLabel";
-            this.scoreLabel.Size = new System.Drawing.Size(38, 13);
+            this.scoreLabel.Size = new System.Drawing.Size(33, 13);
             this.scoreLabel.TabIndex = 9;
-            this.scoreLabel.Text = "Score:";
+            this.scoreLabel.Text = "Time:";
             this.scoreLabel.Click += new System.EventHandler(this.label17_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(274, 318);
+            this.button2.Location = new System.Drawing.Point(277, 321);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 10;
@@ -370,7 +372,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(373, 318);
+            this.button3.Location = new System.Drawing.Point(373, 321);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 11;
@@ -378,11 +380,29 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(313, 350);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(39, 20);
+            this.textBox3.TabIndex = 12;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(215, 187);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(38, 13);
+            this.label17.TabIndex = 13;
+            this.label17.Text = "Score:";
+            // 
             // Boggle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(469, 353);
+            this.ClientSize = new System.Drawing.Size(469, 386);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.textBox3);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.scoreLabel);
@@ -442,6 +462,8 @@
         private System.Windows.Forms.Label scoreLabel;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox textBox3;
     }
 }
 

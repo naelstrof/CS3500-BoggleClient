@@ -52,7 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+
     <Compile Include="BoggleInteractor.cs" />
+
     <Compile Include="ConnectPrompt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,7 +62,8 @@
       <DependentUpon>ConnectPrompt.cs</DependentUpon>
     </Compile>
     <Compile Include="Controller.cs" />
-    <Compile Include="IBoggle.cs" />
+    <Compile Include="IBoggleView.cs" />
+    <Compile Include="BoggleInteractor.cs" />
     <Compile Include="Boggle.cs">
       <SubType>Form</SubType>
     </Compile>
