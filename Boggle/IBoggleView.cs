@@ -12,6 +12,9 @@ namespace WindowsFormsApplication1
         event Action<string> WordEvent;
         event Action ExitEvent;
         event Action CancelEvent;
+        event Action JoinGameEvent;
+        event Action CancelGameEvent;
+
         string Board { set; }
         string Message { set; }
         string Log { set; }

@@ -53,6 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoggleInteractor.cs" />
+    <Compile Include="ConnectPrompt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConnectPrompt.Designer.cs">
+      <DependentUpon>ConnectPrompt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controller.cs" />
     <Compile Include="IBoggle.cs" />
     <Compile Include="Boggle.cs">
@@ -61,10 +67,14 @@
     <Compile Include="Boggle.Designer.cs">
       <DependentUpon>Boggle.cs</DependentUpon>
     </Compile>
+    <Compile Include="IBoggleView.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Boggle.resx">
       <DependentUpon>Boggle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConnectPrompt.resx">
+      <DependentUpon>ConnectPrompt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
