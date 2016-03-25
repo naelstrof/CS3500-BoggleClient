@@ -8,13 +8,11 @@ namespace WindowsFormsApplication1
 {
     public interface IBoggleView
     {
-        event Action<string,string> ConnectionOpenedEvent;
+        event Action<string,string,string> ConnectionOpenedEvent;
         event Action<string> WordEvent;
         event Action ExitEvent;
-        event Action JoinGameEvent;
         event Action CancelEvent;
         event Action JoinGameEvent;
-        event Action CancelGameEvent;
 
         string Board { set; }
         string Message { set; }

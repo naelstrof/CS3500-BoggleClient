@@ -81,6 +81,24 @@ namespace WindowsFormsApplication1
             client.BaseAddress = new Uri(this.state.server);
             return client;
         }
+        public void PrintEnd()
+        {
+            state.log += "Game Over!\n";
+            state.log += "----------\n";
+            state.log += state.players[0].nickname + '\n';
+            foreach ( Word w in state.players[0].words )
+            {
+                state.log += "\t" + w.word + "(" + w.score + ")\n";
+            }
+            state.log += "TOTAL: " + state.players[0].score;
+            state.log += state.players[1].nickname + '\n';
+            state.log += "----------\n";
+            foreach (Word w in state.players[1].words)
+            {
+                state.log += "\t" + w.word + "(" + w.score + ")\n";
+            }
+            state.log += "TOTAL: " + state.players[1].score;
+        }
         public async Task<bool> CreateUserASync( string nickname )
         {
             using (HttpClient client = CreateClient())
@@ -134,18 +152,21 @@ namespace WindowsFormsApplication1
 
         public async Task<bool> CancelJoinRequestAsync()
         {
+            if (state.userToken == "" )
+            {
+                return true;
+            }
             using (HttpClient client = CreateClient())
             {
                 dynamic data = new ExpandoObject();
                 data.UserToken = state.userToken;
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PutAsync("/BoggleService.svc/games", content);
+                state = new GameState();
                 if (response.IsSuccessStatusCode)
                 {
-                    state = new GameState();
                     return true;
                 }
-                state.status = "Error puting cancel: " + response.StatusCode + ", " + response.ReasonPhrase;
                 return false;
             }
         }
@@ -164,7 +185,7 @@ namespace WindowsFormsApplication1
                 {
                     string result = await response.Content.ReadAsStringAsync();
                     dynamic result2 = JsonConvert.DeserializeObject(result);
-                    state.score += result2.Score;
+                    state.score = state.score + Convert.ToInt32(result2.Score);
                     state.log = state.log + word + "(Score: " + result2.Score + ")\n";
                     return true;
                 }
@@ -186,17 +207,19 @@ namespace WindowsFormsApplication1
                     state.timeLeft = gamestate.TimeLeft;
                     state.board = gamestate.Board;
                     state.timeLimit = gamestate.TimeLimit;
-                    Player p1 = new Player(gamestate.Player1.Nickname, gamestate.Player1.Score);
-                    Player p2 = new Player(gamestate.Player2.Nickname, gamestate.Player2.Score);
+                    dynamic player1 = gamestate.Player1;
+                    dynamic player2 = gamestate.Player2;
+                    Player p1 = new Player((string)player1.Nickname, Convert.ToInt32(player1.Score));
+                    Player p2 = new Player((string)player2.Nickname, Convert.ToInt32(player2.Score));
                     if (state.state == "completed")
                     {
                         foreach (dynamic foo in gamestate.Player1.WordsPlayed)
                         {
-                            p1.addWord(foo.Word, foo.Score);
+                            p1.addWord((string)foo.Word, Convert.ToInt32(foo.Score));
                         }
                         foreach (dynamic foo in gamestate.Player2.WordsPlayed)
                         {
-                            p2.addWord(foo.Word, foo.Score);
+                            p2.addWord((string)foo.Word, Convert.ToInt32(foo.Score));
                         }
                     }
                     state.players = new List<Player>();
