@@ -52,9 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-
-    <Compile Include="BoggleInteractor.cs" />
-
+    <Compile Include="BoggleApplicationContext.cs" />
     <Compile Include="ConnectPrompt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,7 +68,6 @@
     <Compile Include="Boggle.Designer.cs">
       <DependentUpon>Boggle.cs</DependentUpon>
     </Compile>
-    <Compile Include="IBoggleView.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Boggle.resx">

@@ -11,6 +11,7 @@ namespace WindowsFormsApplication1
         event Action<string,string> ConnectionOpenedEvent;
         event Action<string> WordEvent;
         event Action ExitEvent;
+        event Action JoinGameEvent;
         event Action CancelEvent;
         event Action JoinGameEvent;
         event Action CancelGameEvent;
@@ -19,5 +20,6 @@ namespace WindowsFormsApplication1
         string Message { set; }
         string Log { set; }
         string Score { set; }
+        string TimeLeft { set; }
     }
 }

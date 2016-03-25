@@ -18,8 +18,6 @@ namespace WindowsFormsApplication1
         public event Action ExitEvent;
         public event Action CancelEvent;
         public event Action JoinGameEvent;
-        public event Action CancelGameEvent;
-
         public string Board
         {
             set
@@ -45,7 +43,7 @@ namespace WindowsFormsApplication1
                 }
                 else
                 {
-                    throw new Exception("Invalid Value Length");
+                    throw new Exception("Got invalid board length.");
                 }
             }
         }
@@ -67,13 +65,27 @@ namespace WindowsFormsApplication1
         {
             set
             {
-                scoreLabel.Text = "Score" + value;
+                label17.Text = "Score: " + value;
             }
         }
-
+        public string TimeLeft
+        {
+            set
+            {
+                timeLabel.Text = "Time Left: " + value;
+            }
+        }
         public Boggle()
         {
             InitializeComponent();
+        }
+
+        private void Boggle_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -84,6 +96,9 @@ namespace WindowsFormsApplication1
             {
                 WordEvent( w );
             }
+        }
+        private void label1_Click(object sender, EventArgs e)
+        {
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -108,47 +123,12 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            if (JoinGameEvent != null)
-            {
-                JoinGameEvent();
-            }
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            if (CancelGameEvent != null)
-            {
-                CancelGameEvent();
-            }
-        }
-
-
-
-
-        //The following functions I think I accidentally created but I am not ssure if they are needed for anything
-        //or not so I just left them here
-
-
-        private void Boggle_Load(object sender, EventArgs e)
-        {
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void textBox2_TextChanged(object sender, EventArgs e)
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
-        private void label17_Click(object sender, EventArgs e)
+        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
         {
 
         }
