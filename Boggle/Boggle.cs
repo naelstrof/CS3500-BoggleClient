@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Boggle;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,22 +28,45 @@ namespace WindowsFormsApplication1
 
         private void Boggle_Load(object sender, EventArgs e)
         {
-
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            string w = textBox1.Text;
+            textBox1.Clear();
+            if (WordEvent != null)
+            {
+                WordEvent( w );
+            }
         }
-
         private void label1_Click(object sender, EventArgs e)
         {
+        }
 
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ExitEvent != null)
+            {
+                ExitEvent();
+            }
+        }
+
+        private void connectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConnectPrompt testDialog = new ConnectPrompt();
+            testDialog.Text = "Connect to server:";
+            if (testDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                if (ConnectionOpenedEvent != null)
+                {
+                    // server, nickname.
+                    ConnectionOpenedEvent(testDialog.textBox1.Text, testDialog.textBox2.Text);
+                }
+            }
         }
     }
 }
