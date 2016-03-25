@@ -13,14 +13,14 @@ namespace WindowsFormsApplication1
 {
     public partial class Boggle : Form, IBoggleView
     {
-        event Action<string, string> ConnectionOpenedEvent;
-        event Action<string> WordEvent;
-        event Action ExitEvent;
-        event Action CancelEvent;
-        string Board { set; }
-        string Message { set; }
-        string Log { set; }
-        string Score { set; }
+        public event Action<string, string> ConnectionOpenedEvent;
+        public event Action<string> WordEvent;
+        public event Action ExitEvent;
+        public event Action CancelEvent;
+        public string Board { set; }
+        public string Message { set; }
+        public string Log { set; }
+        public string Score { set; }
         public Boggle()
         {
             InitializeComponent();
@@ -67,6 +67,11 @@ namespace WindowsFormsApplication1
                     ConnectionOpenedEvent(testDialog.textBox1.Text, testDialog.textBox2.Text);
                 }
             }
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

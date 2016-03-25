@@ -14,6 +14,13 @@ namespace WindowsFormsApplication1
         {
             window = win;
             model = new BoggleInteractor();
+            window.ConnectionOpenedEvent += HandleConnectionOpenedEvent;
+        }
+        public async void HandleConnectionOpenedEvent(string server, string nickname)
+        {
+            model.state.server = server;
+            await model.CreateUserASync(nickname);
+            window.Message = model.state.status;
         }
     }
 }

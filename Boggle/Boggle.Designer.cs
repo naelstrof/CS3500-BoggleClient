@@ -147,9 +147,9 @@
             this.timeLabel.AutoSize = true;
             this.timeLabel.Location = new System.Drawing.Point(274, 294);
             this.timeLabel.Name = "timeLabel";
-            this.timeLabel.Size = new System.Drawing.Size(57, 13);
+            this.timeLabel.Size = new System.Drawing.Size(54, 13);
             this.timeLabel.TabIndex = 7;
-            this.timeLabel.Text = "Time Left: ";
+            this.timeLabel.Text = "Time Left:";
             // 
             // tableLayoutPanel1
             // 
@@ -183,13 +183,17 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(256, 256);
             this.tableLayoutPanel1.TabIndex = 8;
+            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
             // label16
             // 
+            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(193, 192);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(41, 13);
+            this.label16.Size = new System.Drawing.Size(60, 64);
             this.label16.TabIndex = 15;
             this.label16.Text = "label16";
             // 
