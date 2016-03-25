@@ -16,7 +16,10 @@ namespace WindowsFormsApplication1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Boggle());
+
+            var context = BoggleApplicationContext.GetContext();
+            BoggleApplicationContext.GetContext().RunNew();
+            Application.Run(context);
         }
     }
 }

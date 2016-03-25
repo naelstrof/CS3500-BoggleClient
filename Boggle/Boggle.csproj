@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoggleApplicationContext.cs" />
     <Compile Include="ConnectPrompt.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -18,6 +18,7 @@ namespace WindowsFormsApplication1
             window.WordEvent += HandleWordEvent;
             window.ExitEvent += HandleExitEvent;
             window.CancelEvent += HandleCancelEvent;
+            window.JoinGameEvent += HandleJoinGameEvent;
         }
         public async void HandleConnectionOpenedEvent(string server, string nickname)
         {
@@ -35,6 +36,12 @@ namespace WindowsFormsApplication1
         {
             model.CancelJoinRequestAsync();
             window.Close();
+        }
+        public async void HandleJoinGameEvent()
+        {
+            window.Message = "Looking for game...";
+            await model.JoinGameASync(10);
+            window.Message = model.state.status;
         }
         public async void HandleCancelEvent()
         {
