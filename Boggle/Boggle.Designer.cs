@@ -140,7 +140,6 @@
             this.textBox2.AcceptsReturn = true;
             this.textBox2.AcceptsTab = true;
             this.textBox2.BackColor = System.Drawing.SystemColors.Menu;
-            this.textBox2.Enabled = false;
             this.textBox2.Location = new System.Drawing.Point(274, 27);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";

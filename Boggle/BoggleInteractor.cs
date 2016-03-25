@@ -83,21 +83,21 @@ namespace WindowsFormsApplication1
         }
         public void PrintEnd()
         {
-            state.log += "Game Over!\n";
-            state.log += "----------\n";
-            state.log += state.players[0].nickname + '\n';
+            state.log += "Game Over!\r\n";
+            state.log += "----------\r\n";
+            state.log += "Player 1: " + state.players[0].nickname + "\r\n";
             foreach ( Word w in state.players[0].words )
             {
-                state.log += "\t" + w.word + "(" + w.score + ")\n";
+                state.log += "\t" + w.word + "(" + w.score + ")\r\n";
             }
-            state.log += "TOTAL: " + state.players[0].score;
-            state.log += state.players[1].nickname + '\n';
-            state.log += "----------\n";
+            state.log += "TOTAL: " + state.players[0].score + "\r\n";
+            state.log += "Player 2: " + state.players[1].nickname + "\r\n";
+            state.log += "----------\r\n";
             foreach (Word w in state.players[1].words)
             {
-                state.log += "\t" + w.word + "(" + w.score + ")\n";
+                state.log += "\t" + w.word + "(" + w.score + ")\r\n";
             }
-            state.log += "TOTAL: " + state.players[1].score;
+            state.log += "TOTAL: " + state.players[1].score + "\r\n";
         }
         public async Task<bool> CreateUserASync( string nickname )
         {
@@ -186,7 +186,7 @@ namespace WindowsFormsApplication1
                     string result = await response.Content.ReadAsStringAsync();
                     dynamic result2 = JsonConvert.DeserializeObject(result);
                     state.score = state.score + Convert.ToInt32(result2.Score);
-                    state.log = state.log + word + "(Score: " + result2.Score + ")\n";
+                    state.log = state.log + word + "(Score: " + result2.Score + ")\r\n";
                     return true;
                 }
                 state.status = "Error puting word: " + response.StatusCode + ", " + response.ReasonPhrase;
@@ -203,7 +203,16 @@ namespace WindowsFormsApplication1
                 {
                     string result = await response.Content.ReadAsStringAsync();
                     dynamic gamestate = JsonConvert.DeserializeObject(result);
+                    if (state.state == "pending" && gamestate.GameState == "active" )
+                    {
+                        state.status = "Player found!";
+                    }
                     state.state = gamestate.GameState;
+                    if ( state.state == "pending" )
+                    {
+                        state.status = "Waiting for players...";
+                        return false;
+                    }
                     state.timeLeft = gamestate.TimeLeft;
                     state.board = gamestate.Board;
                     state.timeLimit = gamestate.TimeLimit;
