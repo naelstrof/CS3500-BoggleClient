@@ -28,8 +28,14 @@ namespace WindowsFormsApplication1
         {
             model.state.server = server;
             model.state.timeLimit = Convert.ToInt32(time);
-            await model.CreateUserASync(nickname);
-            window.Message = model.state.status;
+            bool test = await model.CreateUserASync(nickname);
+            if (!test)
+            {
+                window.Message = model.state.status;
+            } else
+            {
+                window.Message = model.state.status + " Now click Join Game!";
+            }
         }
         public async void HandleWordEvent( string word )
         {
@@ -45,10 +51,13 @@ namespace WindowsFormsApplication1
         public async void HandleJoinGameEvent()
         {
             window.Message = "Looking for game...";
-            await model.JoinGameASync(model.state.timeLimit);
-            time.Start();
+            bool test = await model.JoinGameASync(model.state.timeLimit);
+            if (test)
+            {
+                time.Start();
+                HandleUpdateEvent(null, null);
+            }
             window.Message = model.state.status;
-            HandleUpdateEvent(null, null);
         }
         public async void HandleUpdateEvent( object sender, EventArgs e )
         {
