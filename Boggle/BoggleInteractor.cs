@@ -9,19 +9,30 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApplication1
 {
+    class Word
+    {
+        public int score;
+        public string word;
+        public Word( string w, int s )
+        {
+            score = s;
+            word = w;
+        }
+    }
     class Player
     {
         public string nickname;
         public int score;
-        public List<string> words;
+        public List<Word> words;
         public Player( string name, int s )
         {
             nickname = name;
             score = s;
+            words = new List<Word>();
         }
-        public void addWord( string word )
+        public void addWord( string word, int score )
         {
-            words.Add(word);
+            words.Add(new Word( word, score ));
         }
     }
     class GameState
@@ -34,6 +45,7 @@ namespace WindowsFormsApplication1
         public int timeLimit;
         public int timeLeft;
         public int score;
+        public string log;
         public string userToken;
         public string status;
         public List<Player> players;
@@ -44,6 +56,7 @@ namespace WindowsFormsApplication1
             status = "OK.";
             gameID = 0;
             state = "";
+            log = "";
             board = "";
             timeLimit = 0;
             timeLeft = 0;
@@ -51,11 +64,12 @@ namespace WindowsFormsApplication1
             players = new List<Player>();
         }
     }
-    class BoggleAPI
+    class BoggleInteractor
     {
         public GameState state;
-        public BoggleAPI()
+        public BoggleInteractor()
         {
+            state = new GameState();
             state.server = "http://bogglecs3500s16.azurewebsites.net/";
             state.nickname = "Loque";
             state.status = "OK.";
@@ -67,7 +81,7 @@ namespace WindowsFormsApplication1
             client.BaseAddress = new Uri(this.state.server);
             return client;
         }
-        async Task<bool> CreateUserASync( GameState foo, string nickname )
+        async Task<bool> CreateUserASync( string nickname )
         {
             using (HttpClient client = CreateClient())
             {
@@ -118,7 +132,7 @@ namespace WindowsFormsApplication1
             }
         }
 
-        async Task<bool> CancelJoinRequetAsync()
+        async Task<bool> CancelJoinRequestAsync()
         {
             using (HttpClient client = CreateClient())
             {
@@ -136,13 +150,13 @@ namespace WindowsFormsApplication1
             }
         }
 
-        async Task<bool> PlayWordAsync(string Word)
+        async Task<bool> PlayWordAsync(string word)
         {
             using (HttpClient client = CreateClient())
             {
                 dynamic data = new ExpandoObject();
                 data.UserToken = state.userToken;
-                data.Word = Word;
+                data.Word = word;
                 StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PutAsync("/BoggleService.svc/games/" + state.gameID, content);
 
@@ -150,14 +164,14 @@ namespace WindowsFormsApplication1
                 {
                     string result = await response.Content.ReadAsStringAsync();
                     dynamic result2 = JsonConvert.DeserializeObject(result);
-                    state.score += result2;
+                    state.score += result2.Score;
+                    state.log = state.log + word + "(Score: " + result2.Score + ")\n";
                     return true;
                 }
                 state.status = "Error puting word: " + response.StatusCode + ", " + response.ReasonPhrase;
                 return false;
             }
         }
-
         async Task<bool> GameStatusAsync()
         {
             using (HttpClient client = CreateClient())
@@ -166,9 +180,31 @@ namespace WindowsFormsApplication1
 
                 if (response.IsSuccessStatusCode)
                 {
+                    string result = await response.Content.ReadAsStringAsync();
+                    dynamic gamestate = JsonConvert.DeserializeObject(result);
+                    state.state = gamestate.GameState;
+                    state.timeLeft = gamestate.TimeLeft;
+                    state.board = gamestate.Board;
+                    state.timeLimit = gamestate.TimeLimit;
+                    Player p1 = new Player(gamestate.Player1.Nickname, gamestate.Player1.Score);
+                    Player p2 = new Player(gamestate.Player2.Nickname, gamestate.Player2.Score);
+                    if (state.state == "completed")
+                    {
+                        foreach (dynamic foo in gamestate.Player1.WordsPlayed)
+                        {
+                            p1.addWord(foo.Word, foo.Score);
+                        }
+                        foreach (dynamic foo in gamestate.Player2.WordsPlayed)
+                        {
+                            p2.addWord(foo.Word, foo.Score);
+                        }
+                    }
+                    state.players = new List<Player>();
+                    state.players.Add(p1);
+                    state.players.Add(p2);
                     return true;
                 }
-                state.status = "Error puting word: " + response.StatusCode + ", " + response.ReasonPhrase;
+                state.status = "Error getting game status: " + response.StatusCode + ", " + response.ReasonPhrase;
                 return false;
             }
         }

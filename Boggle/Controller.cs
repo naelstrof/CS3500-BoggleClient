@@ -8,6 +8,12 @@ namespace WindowsFormsApplication1
 {
     class Controller
     {
-
+        Boggle window;
+        BoggleInteractor model;
+        public Controller(Boggle win)
+        {
+            window = win;
+            model = new BoggleInteractor();
+        }
     }
 }
