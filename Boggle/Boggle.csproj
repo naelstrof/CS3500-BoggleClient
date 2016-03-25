@@ -52,9 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoggleInteractor.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="IBoggle.cs" />
-    <Compile Include="BoggleAPI.cs" />
     <Compile Include="Boggle.cs">
       <SubType>Form</SubType>
     </Compile>
