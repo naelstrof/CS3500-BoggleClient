@@ -83,7 +83,7 @@ namespace WindowsFormsApplication1
         }
         public void PrintEnd()
         {
-            state.log += "Game Over!\r\n";
+            state.log += "\r\nGame Over!\r\n";
             state.log += "----------\r\n";
             state.log += "Player 1: " + state.players[0].nickname + "\r\n";
             foreach ( Word w in state.players[0].words )
@@ -91,8 +91,8 @@ namespace WindowsFormsApplication1
                 state.log += "\t" + w.word + "(" + w.score + ")\r\n";
             }
             state.log += "TOTAL: " + state.players[0].score + "\r\n";
-            state.log += "Player 2: " + state.players[1].nickname + "\r\n";
             state.log += "----------\r\n";
+            state.log += "Player 2: " + state.players[1].nickname + "\r\n";
             foreach (Word w in state.players[1].words)
             {
                 state.log += "\t" + w.word + "(" + w.score + ")\r\n";
