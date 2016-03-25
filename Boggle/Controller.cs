@@ -14,6 +14,19 @@ namespace WindowsFormsApplication1
         {
             window = win;
             model = new BoggleInteractor();
+
+            window.JoinGameEvent += JoinGameHandler;
+            window.CancelGameEvent += CancelGameHandler;
+        }
+
+        public void JoinGameHandler()
+        {
+
+        }
+
+        public void CancelGameHandler()
+        {
+
         }
     }
 }
