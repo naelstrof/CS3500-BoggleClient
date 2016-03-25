@@ -10,8 +10,16 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApplication1
 {
-    public partial class Boggle : Form
+    public partial class Boggle : Form, IBoggleView
     {
+        event Action<string, string> ConnectionOpenedEvent;
+        event Action<string> WordEvent;
+        event Action ExitEvent;
+        event Action CancelEvent;
+        string Board { set; }
+        string Message { set; }
+        string Log { set; }
+        string Score { set; }
         public Boggle()
         {
             InitializeComponent();
@@ -28,6 +36,11 @@ namespace WindowsFormsApplication1
         }
 
         private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }

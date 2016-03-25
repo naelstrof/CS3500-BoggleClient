@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApplication1
 {
-    public interface IBoggle
+    public interface IBoggleView
     {
         event Action<string,string> ConnectionOpenedEvent;
         event Action<string> WordEvent;
