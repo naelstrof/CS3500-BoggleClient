@@ -113,7 +113,8 @@ namespace WindowsFormsApplication1
                     string result = await response.Content.ReadAsStringAsync();
                     dynamic player = JsonConvert.DeserializeObject(result);
                     state.userToken = player.UserToken;
-                    state.status = "Created new user " + state.nickname + " successfully!";
+                    state.nickname = nickname;
+                    state.status = "Created new user " + nickname + " successfully!";
                     return true;
                 }
                 else

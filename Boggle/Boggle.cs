@@ -13,11 +13,11 @@ namespace WindowsFormsApplication1
 {
     public partial class Boggle : Form, IBoggleView
     {
-        public event Action<string, string, string> ConnectionOpenedEvent;
+        public event Action<string, string> ConnectionOpenedEvent;
         public event Action<string> WordEvent;
         public event Action ExitEvent;
         public event Action CancelEvent;
-        public event Action JoinGameEvent;
+        public event Action<string> JoinGameEvent;
         public string Board
         {
             set
@@ -104,7 +104,7 @@ namespace WindowsFormsApplication1
                 if (ConnectionOpenedEvent != null)
                 {
                     // server, nickname, time
-                    ConnectionOpenedEvent(testDialog.textBox1.Text, testDialog.textBox2.Text, testDialog.textBox3.Text);
+                    ConnectionOpenedEvent(testDialog.textBox1.Text, testDialog.textBox2.Text);
                 }
             }
         }
@@ -113,7 +113,7 @@ namespace WindowsFormsApplication1
         {
             if (JoinGameEvent != null)
             {
-                JoinGameEvent();
+                JoinGameEvent(this.textBox3.Text);
             }
             button3.Enabled = true;
         }
@@ -123,6 +123,21 @@ namespace WindowsFormsApplication1
             if (CancelEvent != null)
             {
                 CancelEvent();
+            }
+        }
+        private void CheckEnterKeyPress(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+
+            {
+                string w = textBox3.Text;
+                this.textBox1.Clear();
+                this.textBox1.Text = "";
+                if (WordEvent != null)
+                {
+                    WordEvent(w);
+                }
+                e.Handled = e.SuppressKeyPress = true;
             }
         }
     }

@@ -24,10 +24,9 @@ namespace WindowsFormsApplication1
             window.CancelEvent += HandleCancelEvent;
             window.JoinGameEvent += HandleJoinGameEvent;
         }
-        public async void HandleConnectionOpenedEvent(string server, string nickname, string time)
+        public async void HandleConnectionOpenedEvent(string server, string nickname)
         {
             model.state.server = server;
-            model.state.timeLimit = Convert.ToInt32(time);
             bool test = await model.CreateUserASync(nickname);
             if (!test)
             {
@@ -48,9 +47,16 @@ namespace WindowsFormsApplication1
             model.CancelJoinRequestAsync();
             window.Close();
         }
-        public async void HandleJoinGameEvent()
+        public async void HandleJoinGameEvent(string timelimit )
         {
             window.Message = "Looking for game...";
+            try {
+                model.state.timeLimit = Convert.ToInt32(timelimit);
+            } catch
+            {
+                window.Message = "You must set a integer time limit! Try again...";
+                return;
+            }
             bool test = await model.JoinGameASync(model.state.timeLimit);
             if (test)
             {
@@ -83,7 +89,7 @@ namespace WindowsFormsApplication1
         public async void HandleCancelEvent()
         {
             await model.CancelJoinRequestAsync();
-            window.Message = model.state.status;
+            window.Message = "Disconnected from server. Click on File->Connect to continue.";
             window.Log = model.state.log;
             window.Score = "0";
             window.TimeLeft = "0";

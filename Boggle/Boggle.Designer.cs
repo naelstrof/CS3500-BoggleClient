@@ -59,6 +59,8 @@
             this.label17 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).BeginInit();
@@ -71,7 +73,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(469, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(468, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -104,6 +106,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(200, 20);
             this.textBox1.TabIndex = 1;
+            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CheckEnterKeyPress);
             // 
             // button1
             // 
@@ -119,9 +122,9 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 341);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 355);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(469, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(468, 22);
             this.statusStrip1.TabIndex = 4;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -353,7 +356,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(379, 294);
+            this.label17.Location = new System.Drawing.Point(378, 294);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(41, 13);
             this.label17.TabIndex = 9;
@@ -361,7 +364,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(274, 310);
+            this.button2.Location = new System.Drawing.Point(193, 329);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 10;
@@ -372,7 +375,7 @@
             // button3
             // 
             this.button3.Enabled = false;
-            this.button3.Location = new System.Drawing.Point(382, 310);
+            this.button3.Location = new System.Drawing.Point(381, 329);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 11;
@@ -380,11 +383,32 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click_1);
             // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(111, 329);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(76, 20);
+            this.textBox3.TabIndex = 12;
+            this.textBox3.Tag = "";
+            this.textBox3.Text = "10";
+            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(9, 332);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(96, 13);
+            this.label18.TabIndex = 13;
+            this.label18.Text = "Desired Time Limit:";
+            // 
             // Boggle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(469, 363);
+            this.ClientSize = new System.Drawing.Size(468, 377);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.textBox3);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label17);
@@ -443,6 +467,8 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox textBox3;
     }
 }
 
